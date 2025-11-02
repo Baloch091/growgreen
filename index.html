@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Growplants - Plant. Grow. Earn B3TR</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    :root {
+      --green: #1a5f1a;
+      --gold: #f4c430;
+      --dark: #0f2e0f;
+      --light: #f8fff8;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background: var(--light);
+      color: #222;
+      overflow-x: hidden;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(26, 95, 26, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 1rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: white;
+    }
+
+    .logo span {
+      color: var(--gold);
+    }
+
+    .hamburger {
+      color: white;
+      font-size: 1.8rem;
+      cursor: pointer;
+      display: none;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-menu a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: 0.3s;
+      position: relative;
+    }
+
+    .nav-menu a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--gold);
+      transition: 0.3s;
+    }
+
+    .nav-menu a:hover::after {
+      width: 100%;
+    }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .hamburger { display: block; }
+      .nav-menu {
+        position: fixed;
+        top: 70px;
+        right: -100%;
+        width: 100%;
+        background: var(--green);
+        flex-direction: column;
+        padding: 2rem 5%;
+        transition: 0.4s ease;
+      }
+      .nav-menu.active { right: 0; }
+      .nav-menu a { padding: 1rem 0; font-size: 1.1rem; }
+    }
+
+    /* Hero */
+    .hero {
+      height: 100vh;
+      background: linear-gradient(135deg, rgba(26,95,26,0.9), rgba(15,46,15,0.8)), 
+                  url('https://images.unsplash.com/photo-1453904300235-0f2f60d4383a?q=80&w=1974') center/cover;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: white;
+      padding: 0 5%;
+      margin-top: 70px;
+      position: relative;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+
+    .hero p {
+      font-size: 1.3rem;
+      max-width: 700px;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+
+    .cta-btn {
+      background: var(--gold);
+      color: var(--dark);
+      padding: 1rem 2.5rem;
+      border: none;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 5px 15px rgba(244,196,48,0.4);
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(244,196,48,0.5);
+    }
+
+    /* Stats */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      margin: 3rem 0;
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat h3 {
+      font-size: 2.5rem;
+      color: var(--gold);
+      font-weight: 800;
+    }
+
+    .stat p {
+      color: white;
+      font-size: 1rem;
+    }
+
+    /* Sections */
+    .section {
+      padding: 5rem 5%;
+      display: none;
+    }
+
+    .section.active {
+      display: block;
+      animation: fadeIn 0.6s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 2rem auto;
+    }
+
+    .card {
+      background: white;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      text-align: center;
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+    }
+
+    .card i {
+      font-size: 3rem;
+      color: var(--green);
+      margin-bottom: 1rem;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: white;
+      text-align: center;
+      padding: 3rem 5%;
+    }
+
+    .social-links a {
+      color: white;
+      font-size: 1.8rem;
+      margin: 0 15px;
+      transition: 0.3s;
+    }
+
+    .social-links a:hover {
+      color: var(--gold);
+    }
+
+    /* Coming Soon */
+    .coming-soon {
+      text-align: center;
+      padding: 8rem 2rem;
+      font-size: 2rem;
+      color: #666;
+    }
+
+    .coming-soon i {
+      font-size: 5rem;
+      color: var(--green);
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">Grow<span>plants</span></div>
+    <i class="fas fa-bars hamburger" id="hamburger"></i>
+    <nav class="nav-menu" id="nav-menu">
+      <a href="#" data-page="home">Home</a>
+      <a href="#" data-page="about">About</a>
+      <a href="#" data-page="ads">Ads</a>
+      <a href="#" data-page="shop">Shop</a>
+      <a href="#" data-page="partnership">Partnership</a>
+      <a href="#" data-page="earn">Earn Reward</a>
+    </nav>
+  </header>
+
+  <!-- Home -->
+  <section id="home" class="section active hero">
+    <h1>Grow Plants. Earn B3TR.</h1>
+    <p>Share real photos of your plants. Get rewarded in B3TR tokens. Join 12,000+ growers!</p>
+    
+    <!-- Yeh button ab EARN REWARD page kholega -->
+    <button class="cta-btn" id="startEarningBtn">
+      Start Earning Now
+    </button>
+    
+    <div class="stats">
+      <div class="stat">
+        <h3>12K+</h3>
+        <p>Plants Grown</p>
+      </div>
+      <div class="stat">
+        <h3>50K+</h3>
+        <p>B3TR Distributed</p>
+      </div>
+      <div class="stat">
+        <h3>4.9★</h3>
+        <p>User Rating</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="section">
+    <div style="max-width:1200px;margin:0 auto;text-align:center;">
+      <h2 style="font-size:2.5rem;color:var(--green);margin-bottom:2rem;">Why Grow with Us?</h2>
+      <div class="about-grid">
+        <div class="card">
+          <i class="fas fa-seedling"></i>
+          <h3>Eco-Friendly</h3>
+          <p>Reduce carbon footprint and live sustainably.</p>
+        </div>
+        <div class="card">
+          <i class="fas fa-heart"></i>
+          <h3>Mental Peace</h3>
+          <p>Gardening reduces stress by 60%.</p>
+        </div>
+        <div class="card">
+          <i class="fas fa-coins"></i>
+          <h3>Earn B3TR</h3>
+          <p>Get tokens for every real plant photo.</p>
+        </div>
+      </div>
+
+      <div style="margin-top:3rem;background:white;padding:2rem;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,0.05);">
+        <h3 style="color:var(--green);">Reward Rules</h3>
+        <ul style="text-align:left;max-width:600px;margin:1rem auto;">
+          <li>Photo must be clear, real, and non-blurry</li>
+          <li>Plant must be yours (pot or ground)</li>
+          <li>Include visible date & time</li>
+          <li>Max 3 photos per day</li>
+          <li>No AI or edited images</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Other Pages -->
+  <section id="ads" class="section coming-soon">
+    <i class="fas fa-bullhorn"></i>
+    <h2>Ads - Launching Soon</h2>
+  </section>
+
+  <section id="shop" class="section coming-soon">
+    <i class="fas fa-store"></i>
+    <h2>Shop - Coming Soon</h2>
+  </section>
+
+  <section id="partnership" class="section coming-soon">
+    <i class="fas fa-handshake"></i>
+    <h2>Partnership - Join Us</h2>
+  </section>
+
+  <!-- Earn Reward -->
+  <section id="earn" class="section">
+    <div style="text-align:center;padding:5rem;">
+      <h2 style="font-size:2.8rem;color:var(--green);">Connect & Earn</h2>
+      <p style="font-size:1.3rem;max-width:600px;margin:1.5rem auto;">
+        Link your VEWorld wallet and start earning B3TR for every plant you grow!
+      </p>
+      <button class="cta-btn" style="font-size:1.2rem;padding:1.2rem 3rem;" onclick="alert('VEWorld Connection Coming Soon!')">
+        <i class="fas fa-wallet"></i> Connect VEWorld Wallet
+      </button>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>Contact us on Twitter:</p>
+    <div class="social-links">
+      <a href="https://twitter.com/yourusername" target="_blank">@yourusername</a>
+    </div>
+    <p style="margin-top:1rem;font-size:0.9rem;">&copy; 2025 Growplants. Building the future of green rewards.</p>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('nav-menu');
+    const sections = document.querySelectorAll('.section');
+    const navLinks = document.querySelectorAll('.nav-menu a');
+    const startEarningBtn = document.getElementById('startEarningBtn');
+
+    // Hamburger Menu
+    hamburger.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+    });
+
+    // Navigation Links
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const page = link.getAttribute('data-page');
+        switchPage(page);
+      });
+    });
+
+    // Start Earning Button → Go to Earn Page
+    startEarningBtn.addEventListener('click', () => {
+      switchPage('earn');
+    });
+
+    // Function to switch pages
+    function switchPage(pageId) {
+      sections.forEach(s => s.classList.remove('active'));
+      document.getElementById(pageId).classList.add('active');
+      navMenu.classList.remove('active');
+      // Smooth scroll to top of section
+      document.getElementById(pageId).scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+</body>
+  </html>
